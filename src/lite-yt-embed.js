@@ -11,9 +11,7 @@
  *   https://github.com/vb/lazyframe
  */
 class LiteYTEmbed extends HTMLElement {
-    constructor() {
-        super();
-
+    connectedCallback() {
         // Gotta encode the untrusted value
         // https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#rule-2---attribute-escape-before-inserting-untrusted-data-into-html-common-attributes
         this.videoId = encodeURIComponent(this.getAttribute('videoid'));
@@ -38,9 +36,7 @@ class LiteYTEmbed extends HTMLElement {
         // Warm the connection for the poster image
         LiteYTEmbed.addPrefetch('preload', this.posterUrl, 'image');
         // TODO: support dynamically setting the attribute via attributeChangedCallback
-    }
 
-    connectedCallback() {
         this.style.backgroundImage = `url("${this.posterUrl}")`;
 
         const playBtn = document.createElement('div');
